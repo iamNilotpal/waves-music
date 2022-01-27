@@ -12,6 +12,7 @@ export default function Player({
   const [songInfo, setSongInfo] = useState({
     currentTime: 0,
     duration: 0,
+    animationPercentage: 0,
   });
 
   const onPlayHandler = () => {
@@ -26,10 +27,15 @@ export default function Player({
 
   const onTimeUpdateHandler = (e) => {
     const { currentTime, duration } = e.target;
+    const roundedCurrentTime = Math.round(currentTime);
+    const roundedDuration = Math.round(duration);
     setSongInfo({
       ...songInfo,
       currentTime,
       duration: duration || 0,
+      animationPercentage: Math.round(
+        (roundedCurrentTime / roundedDuration) * 100
+      ),
     });
   };
 
@@ -50,9 +56,7 @@ export default function Player({
       const prevSong = songs[prevSongIndex];
       await setCurrentSong(prevSong);
     } else {
-      const nextSongIndex =
-        currentIndex + 1 <= songs.length - 1 ? currentIndex + 1 : 0;
-      const nextSong = songs[nextSongIndex];
+      const nextSong = songs[(currentIndex + 1) % songs.length];
       await setCurrentSong(nextSong);
     }
 
@@ -66,13 +70,24 @@ export default function Player({
     <div className="player">
       <div className="time-controller">
         <p>{formatTime(songInfo.currentTime)}</p>
-        <input
-          type="range"
-          min={0}
-          max={songInfo.duration}
-          value={songInfo.currentTime}
-          onChange={onAudioDragHandler}
-        />
+        <div className="progress-bar">
+          <input
+            type="range"
+            min={0}
+            max={songInfo.duration}
+            value={songInfo.currentTime}
+            onChange={onAudioDragHandler}
+            style={{
+              backgroundImage: `linear-gradient(to right, ${currentSong.color[0]}, ${currentSong.color[1]})`,
+            }}
+          />
+          <div
+            className="animate-progress-bar"
+            style={{
+              transform: `translateX(${songInfo.animationPercentage}%)`,
+            }}
+          ></div>
+        </div>
         <p>{formatTime(songInfo.duration)}</p>
       </div>
 
@@ -91,6 +106,7 @@ export default function Player({
         onLoadedMetadata={onTimeUpdateHandler}
         ref={audioRef}
         src={currentSong.audioUrl}
+        onEnded={() => onSkipHandler('skip-forward')}
       ></audio>
     </div>
   );
