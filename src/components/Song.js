@@ -1,8 +1,9 @@
-export default function Song() {
+export default function Song({ currentSong }) {
   return (
     <div className="song-container">
-      <h1>Song</h1>
-      <h1>Component</h1>
+      <img src={currentSong.cover} alt={currentSong.name + 'cover photo'} />
+      <h2>{currentSong.name}</h2>
+      <h3>{currentSong.artist}</h3>
     </div>
   );
 }

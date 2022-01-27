@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-function chillHop() {
+export default function getSongs() {
   return [
     {
       name: 'Beaver Creek',
@@ -61,8 +61,5 @@ function chillHop() {
       id: uuidv4(),
       active: false,
     },
-    //ADD MORE HERE
   ];
 }
-
-export default chillHop;

@@ -1,7 +1,23 @@
 .song-container {
+  padding-top: 3rem;
   min-height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  img {
+    width: 20rem;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    padding: 3rem 0rem 0.5rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
 }
