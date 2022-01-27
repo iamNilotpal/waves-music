@@ -1,4 +1,4 @@
-import { FaPlay, FaPause, FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import { FaPlay, FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 export default function Player() {
   return (
