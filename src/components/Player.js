@@ -6,7 +6,6 @@ export default function Player({ currentSong, isPlaying, setIsPlaying }) {
     currentTime: 0,
     duration: 0,
   });
-
   const audioRef = useRef(null);
 
   const onPlayHandler = () => {
